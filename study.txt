@@ -1,0 +1,18 @@
+Till now we have created a REST API. Which allows you store data about a user,
+read the data, update the data and then delete the data.
+
+But as of now there is no authentication is available.
+What is Authentication?
+
+Authentication comes into the place when you want to restrict the usage of your REST API.
+When you want to decide that what should be the security of data on your server.
+
+Backend is nothing but a platform to manage some kind of data for anything.
+
+We need Authentication to provide data security.
+IF you don't have authentication for your net banking, then anyone can use it and do what ever he wants to do.
+
+You want that only you should be allowed to do so, that's where we need an authentication.
+
+- There are many types of authentication available out there. ex JWT token based, Session Based, OAuth social auth flow
+- We are doing JWT token based authentication.

@@ -16,12 +16,9 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    // Security key (SECURITY KEY)
-//    private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    // in production this should be very hard to guess
-    private static final String SECRET_KEY = "i am the secret key";
+    private static final String SECRET_KEY = "averylongandsecurekeyforjwtauthenticationinourdemoproject12345";
 
-    // Generate a JWT token for a given user
+
     public String generateToken (User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("name", user.getName());
@@ -76,7 +73,7 @@ public class JwtService {
     }
 
     private Key getSigningKey() {
-       byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+       byte[] keyBytes = SECRET_KEY.getBytes();
        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

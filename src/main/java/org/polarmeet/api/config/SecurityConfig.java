@@ -1,6 +1,7 @@
 package org.polarmeet.api.config;
 
 import org.polarmeet.api.config.filter.JwtAuthFilter;
+import org.polarmeet.api.config.filter.RequestResponseLoggingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,10 +17,12 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final CustomAuthEntryPoint customAuthEntryPoint;
+    private final RequestResponseLoggingFilter loggingFilter;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, CustomAuthEntryPoint customAuthEntryPoint) {
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, CustomAuthEntryPoint customAuthEntryPoint, RequestResponseLoggingFilter loggingFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.customAuthEntryPoint = customAuthEntryPoint;
+        this.loggingFilter = loggingFilter;
     }
 
     @Bean
@@ -35,7 +38,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(loggingFilter, JwtAuthFilter.class);
 
         return http.build();
     }
